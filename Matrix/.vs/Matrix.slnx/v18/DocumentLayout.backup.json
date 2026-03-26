@@ -1,0 +1,57 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\anritsu\\source\\repos\\Projects\\MatriX\\Matrix\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6F7978AA-B3B3-4B57-AB92-C057521C21B3}|Matrix\\Matrix.csproj|c:\\users\\anritsu\\source\\repos\\projects\\matrix\\matrix\\matrix\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6F7978AA-B3B3-4B57-AB92-C057521C21B3}|Matrix\\Matrix.csproj|solutionrelative:matrix\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F7978AA-B3B3-4B57-AB92-C057521C21B3}|Matrix\\Matrix.csproj|c:\\users\\anritsu\\source\\repos\\projects\\matrix\\matrix\\matrix\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F7978AA-B3B3-4B57-AB92-C057521C21B3}|Matrix\\Matrix.csproj|solutionrelative:matrix\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\anritsu\\source\\repos\\Projects\\MatriX\\Matrix\\Matrix\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "Matrix\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\anritsu\\source\\repos\\Projects\\MatriX\\Matrix\\Matrix\\MainWindow.xaml",
+              "RelativeToolTip": "Matrix\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-26T08:10:57.745Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\anritsu\\source\\repos\\Projects\\MatriX\\Matrix\\Matrix\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Matrix\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\anritsu\\source\\repos\\Projects\\MatriX\\Matrix\\Matrix\\MainWindow.xaml.cs",
+              "RelativeToolTip": "Matrix\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:10:56.364Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
