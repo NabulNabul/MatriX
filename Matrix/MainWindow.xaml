@@ -4,9 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Matrix"
+        xmlns:controls="clr-namespace:Matrix.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Network Analyzer" Height="600" Width="1000">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.2*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- 왼쪽: 스미스 차트 -->
+        <controls:SmithChartControl Grid.Column="0" Margin="10" />
+        <!-- 오른쪽: 매칭 회로 컨트롤 -->
+        <controls:CircuitMatchingControl Grid.Column="1" Margin="10" />
     </Grid>
 </Window>
