@@ -14,7 +14,9 @@
         </Grid.ColumnDefinitions>
         
         <!-- 왼쪽: 스미스 차트 -->
-        <controls:SmithChartControl Grid.Column="0" Margin="10" />
+        <controls:SmithChartControl Grid.Column="0" Margin="10" 
+                                    MeasuredData="{Binding MeasuredData}"
+                                    MatchedData="{Binding MatchedData}"/>
         <!-- 오른쪽: 매칭 회로 컨트롤 -->
         <controls:CircuitMatchingControl Grid.Column="1" Margin="10" />
     </Grid>

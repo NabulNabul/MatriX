@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.12" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.12" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.12" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.9" />
+  </ItemGroup>
+
+  <!-- 구 WPF 파일 제외 -->
+  <ItemGroup>
+    <Compile Remove="MainWindow.xaml.cs" />
+    <Compile Remove="ViewModels\CircuitMatchingControl.xaml.cs" />
+    <Compile Remove="Views\MainWindow.cs" />
+    <Compile Remove="Views\CircuitMatchingControl.cs" />
+    <None Include="MainWindow.xaml" />
+    <None Include="MainWindow.xaml.cs" />
+    <None Include="ViewModels\CircuitMatchingControl.xaml.cs" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,84 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Matrix.ViewModels"
+             xmlns:models="using:Matrix.Models"
+             xmlns:converters="using:Matrix.Converters"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="450"
+             x:Class="Matrix.Views.CircuitMatchingControl"
+             x:DataType="vm:NetworkAnalyzerViewModel">
+  <UserControl.Resources>
+    <converters:UnitConverter x:Key="UnitConverter"/>
+  </UserControl.Resources>
+  <StackPanel Spacing="10">
+
+    <!-- Data Source -->
+    <TextBlock Text="Data Source" FontWeight="Bold" FontSize="16"/>
+    <Button Content="Load Touchstone (.s1p)..." Click="OnLoadTouchstoneClick" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+
+    <!-- VSWR Circle Options -->
+    <TextBlock Text="VSWR Reference" FontWeight="Bold" FontSize="16" Margin="0,10,0,0"/>
+    <StackPanel Orientation="Horizontal" Spacing="10">
+      <CheckBox IsChecked="{Binding ShowVswrCircle}" Content="Show Circle"/>
+      <NumericUpDown Value="{Binding TargetVswr}" Minimum="1.0" Increment="0.1" FormatString="F1" Width="80" IsEnabled="{Binding ShowVswrCircle}"/>
+    </StackPanel>
+
+    <Grid ColumnDefinitions="*,Auto,Auto" Margin="0,10,0,0">
+      <TextBlock Grid.Column="0" Text="Matching Circuit" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+      <Button Grid.Column="1" Content="Load..." Click="OnLoadCircuitClick" Margin="0,0,5,0" Padding="5,2"/>
+      <Button Grid.Column="2" Content="Save..." Click="OnSaveCircuitClick" Padding="5,2"/>
+    </Grid>
+
+    <!-- Circuit Components List (회로 소자 리스트) -->
+    <ItemsControl ItemsSource="{Binding Circuit}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="models:CircuitComponent">
+          <Border Background="Transparent" CornerRadius="4" Padding="5" Margin="0,2" BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" BorderThickness="1">
+            <Grid ColumnDefinitions="*, Auto, Auto">
+              <TextBlock Grid.Column="0" Text="{Binding Type}" VerticalAlignment="Center" FontWeight="SemiBold"/>
+              <!-- 패널 상에서도 직접 값 조정 및 삭제 가능 -->
+              <NumericUpDown Grid.Column="1" Value="{Binding Value}" Minimum="0.01" Increment="0.1" FormatString="F2" Width="90" Margin="10,0,5,0"/>
+              <Button Grid.Column="2" Content="삭제" Command="{Binding $parent[UserControl].((vm:NetworkAnalyzerViewModel)DataContext).RemoveComponentCommand}" CommandParameter="{Binding}" Background="IndianRed" Foreground="White" Padding="5"/>
+            </Grid>
+          </Border>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+    <!-- Frequency Selection -->
+    <TextBlock Text="Target Frequency" Margin="0,10,0,0"/>
+    <StackPanel Orientation="Horizontal" Spacing="5">
+        <ComboBox ItemsSource="{Binding AvailableFrequencies}" 
+                  SelectedItem="{Binding SelectedFrequency}" 
+                  Width="150"
+                  PlaceholderText="All Frequencies"/>
+        <Button Content="All" Command="{Binding ClearFrequencySelectionCommand}"/>
+    </StackPanel>
+
+
+    <!-- Add Component Buttons -->
+    <TextBlock Text="Add Component" Margin="0,10,0,0"/>
+    <ItemsControl ItemsSource="{Binding AvailableComponentItems}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <WrapPanel HorizontalAlignment="Center" Margin="0,5,0,0"/>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:AvailableComponentItem">
+                <Button Command="{Binding $parent[UserControl].((vm:NetworkAnalyzerViewModel)DataContext).AddComponentCommand}" 
+                        CommandParameter="{Binding Type}"
+                        Margin="3" Width="70" Height="65"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    <StackPanel Spacing="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <!-- 회로도 기호 (SVG Path) -->
+                        <Path Data="{Binding IconPath}" Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="2" Fill="Transparent" Width="30" Height="30" Stretch="Uniform"/>
+                        <TextBlock Text="{Binding Name}" FontSize="12" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+  </StackPanel>
+</UserControl>

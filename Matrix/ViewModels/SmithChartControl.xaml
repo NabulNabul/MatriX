@@ -1,8 +1,0 @@
-<UserControl x:Class="Matrix.Controls.SmithChartControl"
-             xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Width="400" Height="400">
-    <Grid Name="ChartGrid" Background="White">
-        <!-- 고성능 렌더링을 위해 Code-Behind의 Render를 활용합니다. -->
-    </Grid>
-</UserControl>

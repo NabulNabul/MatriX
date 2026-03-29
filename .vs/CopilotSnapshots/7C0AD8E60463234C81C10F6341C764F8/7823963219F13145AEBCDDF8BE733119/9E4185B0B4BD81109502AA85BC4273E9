@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <AvaloniaDesignerSupported>false</AvaloniaDesignerSupported>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.12" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.12" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.12" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.9" />
+  </ItemGroup>
+
+  <Target Name="KillBeforeBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="powershell -NoProfile -Command &quot;try { Stop-Process -Name Matrix -Force -ErrorAction SilentlyContinue } catch { } ; exit 0&quot;" />
+  </Target>
+
+  <ItemGroup>
+    <AvaloniaXaml Include="App.xaml" />
+    <Compile Remove="App.cs" />
+    <Compile Remove="MainWindow.xaml.cs" />
+    <Compile Remove="Views\MainWindow.cs" />
+    <Compile Remove="Views\CircuitMatchingControl.cs" />
+  </ItemGroup>
+
+</Project>
