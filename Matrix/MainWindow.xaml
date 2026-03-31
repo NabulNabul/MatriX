@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Matrix"
         xmlns:controls="clr-namespace:Matrix.Controls"
         mc:Ignorable="d"
-        Title="Network Analyzer" Height="600" Width="1000">
+        Title="MyLab MiIn 2.0" Height="600" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
