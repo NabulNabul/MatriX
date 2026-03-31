@@ -5,6 +5,7 @@
              xmlns:vm="using:Matrix.ViewModels"
              xmlns:models="using:Matrix.Models"
              xmlns:converters="using:Matrix.Converters"
+             xmlns:controls="using:Matrix.Controls"
              mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="450"
              x:Class="Matrix.Views.CircuitMatchingControl"
              x:DataType="vm:NetworkAnalyzerViewModel">
@@ -30,21 +31,12 @@
       <Button Grid.Column="2" Content="Save..." Click="OnSaveCircuitClick" Padding="5,2"/>
     </Grid>
 
-    <!-- Circuit Components List (회로 소자 리스트) -->
-    <ItemsControl ItemsSource="{Binding Circuit}">
-      <ItemsControl.ItemTemplate>
-        <DataTemplate x:DataType="models:CircuitComponent">
-          <Border Background="Transparent" CornerRadius="4" Padding="5" Margin="0,2" BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" BorderThickness="1">
-            <Grid ColumnDefinitions="*, Auto, Auto">
-              <TextBlock Grid.Column="0" Text="{Binding Type}" VerticalAlignment="Center" FontWeight="SemiBold"/>
-              <!-- 패널 상에서도 직접 값 조정 및 삭제 가능 -->
-              <NumericUpDown Grid.Column="1" Value="{Binding Value}" Minimum="0.01" Increment="0.1" FormatString="F2" Width="90" Margin="10,0,5,0"/>
-              <Button Grid.Column="2" Content="삭제" Command="{Binding $parent[UserControl].((vm:NetworkAnalyzerViewModel)DataContext).RemoveComponentCommand}" CommandParameter="{Binding}" Background="IndianRed" Foreground="White" Padding="5"/>
-            </Grid>
-          </Border>
-        </DataTemplate>
-      </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    <!-- 회로도 기호 표시 (소자 위에 호버 시 값 수정/삭제 가능) -->
+    <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+            BorderThickness="1" CornerRadius="4" Padding="4">
+      <controls:SchematicControl Circuit="{Binding MatchingCircuit}"
+                                 HorizontalAlignment="Stretch"/>
+    </Border>
 
     <!-- Frequency Selection -->
     <TextBlock Text="Target Frequency" Margin="0,10,0,0"/>

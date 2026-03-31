@@ -11,7 +11,7 @@
         Title="MyLab MiIn 2.0"
         >
 
-    <Grid ColumnDefinitions="1*,1.2*">
+    <Grid ColumnDefinitions="1*,4,1*">
         <Grid Grid.Column="0" Margin="10" RowDefinitions="Auto,*">
             <Button Grid.Row="0" Content="Save as PNG..." Click="OnSaveChartClick" HorizontalAlignment="Right" Margin="0,0,0,5"/>
             <controls:SmithChartControl Grid.Row="1"
@@ -25,6 +25,10 @@
                                      ReturnLossText="{Binding ReturnLossText}"/>
         </Grid>
 
-        <views:CircuitMatchingControl Grid.Column="1" Margin="10" DataContext="{Binding}"/>
+        <GridSplitter Grid.Column="1" Width="4" ResizeDirection="Columns" Background="#20808080"/>
+
+        <ScrollViewer Grid.Column="2" MinWidth="180">
+            <views:CircuitMatchingControl Margin="10" DataContext="{Binding}"/>
+        </ScrollViewer>
     </Grid>
 </Window>

@@ -1,14 +1,3 @@
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\Matrix.csproj.AssemblyReference.cache
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\Avalonia\Resources.Inputs.cache
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\Avalonia\resources
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\Matrix.GeneratedMSBuildEditorConfig.editorconfig
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\Matrix.AssemblyInfoInputs.cache
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\Matrix.AssemblyInfo.cs
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\Matrix.csproj.CoreCompileInputs.cache
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\Matrix.sourcelink.json
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\Matrix.dll
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\refint\Matrix.dll
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\Matrix.pdb
 G:\Projects\MatriX\Matrix\bin\Debug\net8.0\Matrix.exe
 G:\Projects\MatriX\Matrix\bin\Debug\net8.0\Matrix.deps.json
 G:\Projects\MatriX\Matrix\bin\Debug\net8.0\Matrix.runtimeconfig.json
@@ -71,6 +60,4 @@ G:\Projects\MatriX\Matrix\bin\Debug\net8.0\runtimes\osx\native\libSkiaSharp.dyli
 G:\Projects\MatriX\Matrix\bin\Debug\net8.0\runtimes\win-arm64\native\libSkiaSharp.dll
 G:\Projects\MatriX\Matrix\bin\Debug\net8.0\runtimes\win-x64\native\libSkiaSharp.dll
 G:\Projects\MatriX\Matrix\bin\Debug\net8.0\runtimes\win-x86\native\libSkiaSharp.dll
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\Matrix.csproj.Up2Date
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\Matrix.genruntimeconfig.cache
-G:\Projects\MatriX\Matrix\obj\Debug\net8.0\ref\Matrix.dll
+G:\Projects\MatriX\Matrix\bin\Debug\net8.0\CommunityToolkit.Mvvm.dll

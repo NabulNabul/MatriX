@@ -76,9 +76,34 @@ namespace Matrix.Controls
         private string _autoMatchInfo = string.Empty;
         public string AutoMatchInfo { get => _autoMatchInfo; private set => SetAndRaise(AutoMatchInfoProperty, ref _autoMatchInfo, value); }
 
+        public static readonly StyledProperty<string> VswrTextProperty =
+            AvaloniaProperty.Register<SmithChartControl, string>(nameof(VswrText), string.Empty);
+        public string VswrText
+        {
+            get => GetValue(VswrTextProperty);
+            set => SetValue(VswrTextProperty, value);
+        }
+
+        public static readonly StyledProperty<string> ReturnLossTextProperty =
+            AvaloniaProperty.Register<SmithChartControl, string>(nameof(ReturnLossText), string.Empty);
+        public string ReturnLossText
+        {
+            get => GetValue(ReturnLossTextProperty);
+            set => SetValue(ReturnLossTextProperty, value);
+        }
+
 
         private bool _isMouseOver = false;
-        
+
+        // 오버레이 상태
+        private bool   _overlayIsOver;
+        private Point  _overlayGamma;
+        private Point  _overlayImpedance = new Point(double.NaN, double.NaN);
+        private string _overlayAutoMatch = string.Empty;
+        private string _overlayVswr      = string.Empty;
+        private string _overlayRl        = string.Empty;
+
+
         // Zoom & Pan 상태 변수
         private double _zoomFactor = 1.0;
         private Point _panOffset = new Point(0, 0);
@@ -87,15 +112,18 @@ namespace Matrix.Controls
 
         public SmithChartControl()
         {
-            this.ClipToBounds = true; // 확대 시 컨트롤 영역 밖으로 그려지는 것을 방지
+            this.ClipToBounds = true;
+
             this.AttachedToVisualTree += (_, __) => SubscribeCollections();
             this.DetachedFromVisualTree += (_, __) => UnsubscribeCollections();
-            this.GetObservable(MeasuredDataProperty).Subscribe(_ => SubscribeCollections());
-            this.GetObservable(MatchedDataProperty).Subscribe(_ => SubscribeCollections());
-            this.GetObservable(MatchingPathsProperty).Subscribe(_ => SubscribeCollections());
-            this.GetObservable(ShowVswrCircleProperty).Subscribe(_ => InvalidateVisual());
-            this.GetObservable(TargetVswrProperty).Subscribe(_ => InvalidateVisual());
-            this.SizeChanged += (_, __) => InvalidateVisual();
+            this.GetObservable(MeasuredDataProperty).Subscribe(_ => InvalidateChartCache());
+            this.GetObservable(MatchedDataProperty).Subscribe(_ => InvalidateChartCache());
+            this.GetObservable(MatchingPathsProperty).Subscribe(_ => InvalidateChartCache());
+            this.GetObservable(ShowVswrCircleProperty).Subscribe(_ => InvalidateChartCache());
+            this.GetObservable(TargetVswrProperty).Subscribe(_ => InvalidateChartCache());
+            this.GetObservable(VswrTextProperty).Subscribe(_ => { _overlayVswr = VswrText; InvalidateVisual(); });
+            this.GetObservable(ReturnLossTextProperty).Subscribe(_ => { _overlayRl = ReturnLossText; InvalidateVisual(); });
+            this.SizeChanged += (_, __) => InvalidateChartCache();
             this.PointerMoved += OnPointerMoved;
             this.PointerEntered += OnPointerMoved;
             this.PointerExited += OnPointerLeave;
@@ -112,7 +140,7 @@ namespace Matrix.Controls
                 matched.CollectionChanged += OnCollectionChanged;
             if (MatchingPaths is INotifyCollectionChanged paths)
                 paths.CollectionChanged += OnCollectionChanged;
-            InvalidateVisual();
+            InvalidateChartCache();
         }
 
         private void UnsubscribeCollections()
@@ -126,9 +154,7 @@ namespace Matrix.Controls
         }
 
         private void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-        {
-            InvalidateVisual();
-        }
+            => InvalidateChartCache();
 
         // 공통된 줌/팬 좌표 계산 로직
         private bool GetChartLayout(out double cx, out double cy, out double radius)
@@ -149,104 +175,193 @@ namespace Matrix.Controls
             return true;
         }
 
+        // 차트 무효화 — 데이터/줌/팬/크기 변경 시 호출
+        private void InvalidateChartCache()
+        {
+            InvalidateVisual();
+        }
+
         public override void Render(DrawingContext context)
         {
             base.Render(context);
-
             if (!GetChartLayout(out double cx, out double cy, out double radius)) return;
 
+            // Avalonia DrawingContext는 GPU 벡터 파이프라인 — 직접 그리면 벡터 품질 그대로
             DrawSmithChartGrid(context, cx, cy, radius);
             DrawVswrCircle(context, cx, cy, radius);
             DrawData(context, MeasuredData, cx, cy, radius, Brushes.Blue);
             DrawMatchingPaths(context, cx, cy, radius);
             DrawData(context, MatchedData, cx, cy, radius, Brushes.Red);
-            DrawCursorInfo(context, Bounds.Height);
+            DrawOverlay(context);
         }
 
+        private static readonly Typeface   _overlayTf   = new Typeface("Segoe UI");
+        private static readonly IBrush     _overlayBg   = new SolidColorBrush(Color.FromArgb(200, 30, 30, 30));
+        private static readonly IBrush     _overlayFg   = Brushes.WhiteSmoke;
+        private static readonly IBrush     _overlayPlum = new SolidColorBrush(Colors.Plum);
+        private const double OverlayFs    = 15;
+        private const double OverlayLineH = 25;
+        private const double OverlayPad   = 8;
+
+        private void DrawOverlay(DrawingContext ctx)
+        {
+            double w = Bounds.Width;
+            double h = Bounds.Height;
+            if (w <= 0 || h <= 0) return;
+
+            // ── 좌측 하단: Γ / Z / AutoMatch ─────────────────────────
+            var btmLines = new List<(string text, IBrush brush)>();
+            if (!string.IsNullOrEmpty(_overlayAutoMatch))
+                btmLines.Add(($"Match: {_overlayAutoMatch}", _overlayPlum));
+            if (_overlayIsOver && !double.IsNaN(_overlayImpedance.X))
+            {
+                btmLines.Add(($"Γ  {_overlayGamma.X:+0.000;-0.000} {_overlayGamma.Y:+0.000;-0.000}j", _overlayFg));
+                btmLines.Add(($"Z  {_overlayImpedance.X:F3} {_overlayImpedance.Y:+0.000;-0.000}j Ω",  _overlayFg));
+            }
+            if (btmLines.Count > 0)
+            {
+                double bh = btmLines.Count * OverlayLineH + OverlayPad * 2;
+                double by = h - bh - 5;
+                ctx.DrawRectangle(_overlayBg, null, new Rect(5, by, 290, bh), 4, 4);
+                for (int i = 0; i < btmLines.Count; i++)
+                    DrawOverlayStr(ctx, btmLines[i].text, 5 + OverlayPad, by + OverlayPad + i * OverlayLineH, btmLines[i].brush);
+            }
+
+            // ── 우측 상단: VSWR / ReturnLoss ─────────────────────────
+            var topLines = new List<string>();
+            if (!string.IsNullOrEmpty(_overlayVswr)) topLines.Add(_overlayVswr);
+            if (!string.IsNullOrEmpty(_overlayRl))   topLines.Add(_overlayRl);
+            if (topLines.Count > 0)
+            {
+                const double boxW = 250;
+                double th = topLines.Count * OverlayLineH + OverlayPad * 2;
+                double tx = w - boxW - 5;
+                ctx.DrawRectangle(_overlayBg, null, new Rect(tx, 5, boxW, th), 4, 4);
+                for (int i = 0; i < topLines.Count; i++)
+                    DrawOverlayStr(ctx, topLines[i], tx + OverlayPad, 5 + OverlayPad + i * OverlayLineH, _overlayFg);
+            }
+        }
+
+        private static void DrawOverlayStr(DrawingContext ctx, string text, double x, double y, IBrush brush)
+        {
+            var ft = new FormattedText(text,
+                System.Globalization.CultureInfo.CurrentCulture,
+                FlowDirection.LeftToRight, _overlayTf, OverlayFs, brush);
+            ctx.DrawText(ft, new Point(x, y));
+        }
+
+        // smith.ps ZRegions/ZMinordiv/ZMajordiv 기반 그리드 생성
+        private enum GridWeight { Thin, Minor, Major, Highlight }
+
+        private static List<(double value, GridWeight weight)> BuildZGrid()
+        {
+            // smith.ps: ZRegions=[0,0.2,0.5,1,2,5,10,20,50], ZMinordiv=[0.01,0.02,0.05,0.1,0.2,1,2,10], ZMajordiv=[5,5,2,2,5,5,5,5]
+            double[] regions = { 0, 0.2, 0.5, 1.0, 2.0, 5.0, 10.0, 20.0, 50.0 };
+            double[] steps   = { 0.01, 0.02, 0.05, 0.1, 0.2, 1.0, 2.0, 10.0 };
+            int[]    majorN  = { 5, 5, 2, 2, 5, 5, 5, 5 };
+
+            var result = new List<(double, GridWeight)>();
+            for (int seg = 0; seg < regions.Length - 1; seg++)
+            {
+                double end   = regions[seg + 1];
+                double step  = steps[seg];
+                int    major = majorN[seg];
+                int    count = 0;
+
+                for (double v = regions[seg] + step; v <= end + step * 0.01; v += step, count++)
+                {
+                    double rv = Math.Round(v, 10);
+                    bool isBoundary  = Math.Abs(rv - end)  < step * 0.1;
+                    bool isHighlight = Math.Abs(rv - 1.0)  < step * 0.1;
+                    bool isMajorDiv  = ((count + 1) % major == 0) || isBoundary;
+
+                    GridWeight w;
+                    if      (isHighlight) w = GridWeight.Highlight;
+                    else if (isMajorDiv)  w = GridWeight.Major;
+                    else if (seg == 0)    w = GridWeight.Thin;
+                    else                  w = GridWeight.Minor;
+
+                    result.Add((rv, w));
+                }
+            }
+            return result;
+        }
 
         private void DrawSmithChartGrid(DrawingContext context, double cx, double cy, double r)
         {
-            var majorPen = new Pen(Brushes.Gray, 1.0);
-            var minorPen = new Pen(Brushes.LightGray, 0.5);
-            var axisPen = new Pen(Brushes.Black, 1.0);
-            var highlightPen = new Pen(Brushes.Blue, 1.5);
-            var admMajorPen = new Pen(new SolidColorBrush(Color.FromArgb(150, 0, 100, 0)), 0.8,
-                new DashStyle(new double[] { 4, 3 }, 0));
-            var admMinorPen = new Pen(new SolidColorBrush(Color.FromArgb(70, 0, 120, 0)), 0.4,
-                new DashStyle(new double[] { 2, 4 }, 0));
-            var labelBrush = Brushes.DarkSlateGray;
+            // 선 두께: Thin=0.3, Minor=0.5, Major=0.85, Highlight=1.6 (blue)
+            var thinPen      = new Pen(new SolidColorBrush(Color.FromArgb(110, 190, 190, 190)), 0.3);
+            var minorPen     = new Pen(new SolidColorBrush(Color.FromArgb(170, 120, 120, 120)), 0.5);
+            var majorPen     = new Pen(new SolidColorBrush(Color.FromArgb(210,  60,  60,  60)), 0.85);
+            var highlightPen = new Pen(new SolidColorBrush(Color.FromArgb(230,  20,  60, 200)), 1.6);
+            var axisPen      = new Pen(Brushes.Black, 1.0);
 
-            // Grid values matching smith.ps (r=20, r=50 추가)
-            double[] rMajorValues = { 0.2, 0.5, 1.0, 2.0, 5.0 };
-            double[] rMinorValues = { 0.1, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9, 1.2, 1.4, 1.6, 1.8, 3.0, 4.0, 10.0, 20.0, 50.0 };
-            double[] xMajorValues = { 0.2, 0.5, 1.0, 2.0, 5.0 };
-            double[] xMinorValues = { 0.1, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9, 1.2, 1.4, 1.6, 1.8, 3.0, 4.0, 10.0, 20.0, 50.0 };
+            // 어드미턴스 점선 (녹색, 임피던스보다 연하게)
+            var admThinPen  = new Pen(new SolidColorBrush(Color.FromArgb( 55,   0, 150,  60)), 0.3,  new DashStyle(new double[] { 3, 5 }, 0));
+            var admMinorPen = new Pen(new SolidColorBrush(Color.FromArgb( 90,   0, 130,  50)), 0.45, new DashStyle(new double[] { 3, 4 }, 0));
+            var admMajorPen = new Pen(new SolidColorBrush(Color.FromArgb(140,   0, 110,  40)), 0.7,  new DashStyle(new double[] { 4, 3 }, 0));
 
-            // 단위원으로 클리핑 — 리액턴스/어드미턴스 원이 경계 밖으로 넘치지 않도록
+            var grid = BuildZGrid();
+
+            IPen ZPen(GridWeight w) => w switch
+            {
+                GridWeight.Highlight => highlightPen,
+                GridWeight.Major     => majorPen,
+                GridWeight.Minor     => minorPen,
+                _                    => thinPen
+            };
+            IPen YPen(GridWeight w) => w switch
+            {
+                GridWeight.Major or GridWeight.Highlight => admMajorPen,
+                GridWeight.Minor                         => admMinorPen,
+                _                                        => admThinPen
+            };
+
             using (context.PushGeometryClip(new EllipseGeometry(new Rect(cx - r, cy - r, r * 2, r * 2))))
             {
-                // 어드미턴스 그리드 (점선 녹색, 임피던스 그리드 아래 먼저 그림)
-                foreach (var gVal in rMajorValues)
-                    DrawAdmittanceGCircle(context, cx, cy, r, admMajorPen, gVal);
-                foreach (var gVal in rMinorValues)
-                    DrawAdmittanceGCircle(context, cx, cy, r, admMinorPen, gVal);
-                foreach (var bVal in xMajorValues)
+                // ① 어드미턴스 그리드 (먼저, 임피던스 아래)
+                foreach (var (v, w) in grid)
                 {
-                    DrawAdmittanceBCircle(context, cx, cy, r, admMajorPen, bVal);
-                    DrawAdmittanceBCircle(context, cx, cy, r, admMajorPen, -bVal);
-                }
-                foreach (var bVal in xMinorValues)
-                {
-                    DrawAdmittanceBCircle(context, cx, cy, r, admMinorPen, bVal);
-                    DrawAdmittanceBCircle(context, cx, cy, r, admMinorPen, -bVal);
+                    var ap = YPen(w);
+                    DrawAdmittanceGCircle(context, cx, cy, r, ap, v);
+                    if (v > 1e-9)
+                    {
+                        DrawAdmittanceBCircle(context, cx, cy, r, ap,  v);
+                        DrawAdmittanceBCircle(context, cx, cy, r, ap, -v);
+                    }
                 }
 
-                // 수평축 (R-axis)
+                // ② 수평 실축
                 context.DrawLine(axisPen, new Point(cx - r, cy), new Point(cx + r, cy));
 
-                // 등저항 원
-                foreach (var rVal in rMajorValues)
-                {
-                    var pen = Math.Abs(rVal - 1.0) < 1e-9 ? highlightPen : majorPen;
-                    DrawResistanceCircle(context, cx, cy, r, pen, rVal);
-                }
-                foreach (var rVal in rMinorValues)
-                    DrawResistanceCircle(context, cx, cy, r, minorPen, rVal);
+                // ③ 등저항 원 (R circles)
+                foreach (var (v, w) in grid)
+                    DrawResistanceCircle(context, cx, cy, r, ZPen(w), v);
 
-                // 등리액턴스 원 (정확한 원 방정식, 클리핑으로 경계 처리)
-                foreach (var xVal in xMajorValues)
+                // ④ 등리액턴스 원 (X arcs, ±)
+                foreach (var (v, w) in grid)
                 {
-                    var pen = Math.Abs(xVal - 1.0) < 1e-9 ? highlightPen : majorPen;
-                    DrawReactanceCircle(context, cx, cy, r, pen, xVal);
-                    DrawReactanceCircle(context, cx, cy, r, pen, -xVal);
-                }
-                foreach (var xVal in xMinorValues)
-                {
-                    DrawReactanceCircle(context, cx, cy, r, minorPen, xVal);
-                    DrawReactanceCircle(context, cx, cy, r, minorPen, -xVal);
+                    if (v < 1e-9) continue;
+                    var zp = ZPen(w);
+                    DrawReactanceCircle(context, cx, cy, r, zp,  v);
+                    DrawReactanceCircle(context, cx, cy, r, zp, -v);
                 }
             }
 
-            // 경계원 (클리핑 해제 후 위에 덮어 그림)
+            // ⑤ 경계원 (클리핑 해제 후 맨 위에 덮어 그림)
             context.DrawEllipse(null, new Pen(Brushes.Black, 1.5), new Point(cx, cy), r, r);
 
-            // R 라벨 (수평축 위)
-            foreach (var rVal in rMajorValues)
+            // ⑥ R 라벨 — 실축 위, 경계원 안쪽
+            var labelBrush  = new SolidColorBrush(Color.FromArgb(210, 30, 30, 60));
+            var hlLabelBrush = new SolidColorBrush(Color.FromArgb(230, 20, 60, 200));
+            double[] rLabels = { 0.2, 0.5, 1.0, 2.0, 5.0, 10.0, 20.0 };
+            foreach (var rv in rLabels)
             {
-                double labelX = cx + r * (rVal - 1) / (rVal + 1);
-                double labelYOffset = Math.Abs(rVal - 1.0) < 1e-9 ? -12 : 0;
-                DrawText(context, rVal.ToString("0.0#"), new Point(labelX, cy + labelYOffset), labelBrush, 9);
-            }
-
-            // X 라벨 (경계원 바깥)
-            foreach (var xVal in xMajorValues)
-            {
-                Point gammaPos = GammaFromZ(0, xVal);
-                DrawText(context, xVal.ToString("0.0#"),
-                    new Point(cx + gammaPos.X * (r + 10), cy - gammaPos.Y * (r + 10)), labelBrush, 9);
-                Point gammaNeg = GammaFromZ(0, -xVal);
-                DrawText(context, (-xVal).ToString("0.0#"),
-                    new Point(cx + gammaNeg.X * (r + 10), cy - gammaNeg.Y * (r + 10)), labelBrush, 9);
+                double lx    = cx + r * (rv - 1.0) / (rv + 1.0);
+                bool   isHl  = Math.Abs(rv - 1.0) < 1e-9;
+                double lyOff = isHl ? -13 : 4;
+                string lbl   = rv < 10 ? rv.ToString("0.0#") : rv.ToString("0");
+                DrawText(context, lbl, new Point(lx, cy + lyOff), isHl ? hlLabelBrush : labelBrush, isHl ? 11 : 9);
             }
         }
 
@@ -327,25 +442,36 @@ namespace Matrix.Controls
                 double dy = pos.Y - _lastMousePosition.Y;
                 _panOffset = new Point(_panOffset.X + dx, _panOffset.Y + dy);
                 _lastMousePosition = pos;
-                InvalidateVisual();
+                InvalidateChartCache(); // 팬은 차트 레이아웃 변경
             }
 
             if (!GetChartLayout(out double cx, out double cy, out double radius)) return;
-            
+
             double u = (pos.X - cx) / radius;
             double v = -(pos.Y - cy) / radius;
 
-            _isMouseOver = u * u + v * v <= 1.005; // Give a little tolerance
+            // 히스테리시스: 진입은 0.98, 이탈은 1.02 — 경계 근처 깜박거림 방지
+            double magSq = u * u + v * v;
+            if (!_isMouseOver && magSq <= 0.98)
+                _isMouseOver = true;
+            else if (_isMouseOver && magSq > 1.02)
+                _isMouseOver = false;
 
-            MouseGamma = new Point(u, v);
+            MouseGamma     = new Point(u, v);
             MouseImpedance = _isMouseOver ? ZFromGamma(u, v) : new Point(double.NaN, double.NaN);
+            _overlayIsOver    = _isMouseOver;
+            _overlayGamma     = MouseGamma;
+            _overlayImpedance = MouseImpedance;
+            _overlayAutoMatch = AutoMatchInfo;
             InvalidateVisual();
         }
 
         private void OnPointerLeave(object? sender, PointerEventArgs e)
         {
-            _isMouseOver = false;
-            MouseImpedance = new Point(double.NaN, double.NaN);
+            _isMouseOver      = false;
+            _overlayIsOver    = false;
+            MouseImpedance    = new Point(double.NaN, double.NaN);
+            _overlayImpedance = MouseImpedance;
             InvalidateVisual();
         }
 
@@ -363,16 +489,19 @@ namespace Matrix.Controls
 
             if (p.Properties.IsLeftButtonPressed && e.ClickCount == 2)
             {
-                _zoomFactor = 1.0;
-                _panOffset = new Point(0, 0);
-                AutoMatchInfo = string.Empty;
-                InvalidateVisual();
+                _zoomFactor   = 1.0;
+                _panOffset    = new Point(0, 0);
+                AutoMatchInfo    = string.Empty;
+                _overlayAutoMatch = string.Empty;
+                _overlayIsOver   = false;
+                InvalidateChartCache(); // 더블클릭: 줌/팬 리셋
                 return;
             }
 
             if (!p.Properties.IsLeftButtonPressed)
             {
-                AutoMatchInfo = string.Empty;
+                AutoMatchInfo    = string.Empty;
+                _overlayAutoMatch = string.Empty;
                 InvalidateVisual();
                 return;
             }
@@ -386,7 +515,8 @@ namespace Matrix.Controls
 
             if (u * u + v * v > 1.005) // Click outside chart
             {
-                AutoMatchInfo = string.Empty;
+                AutoMatchInfo    = string.Empty;
+                _overlayAutoMatch = string.Empty;
                 InvalidateVisual();
                 return;
             }
@@ -448,7 +578,8 @@ namespace Matrix.Controls
                 }
             }
 
-            AutoMatchInfo = results.Any() ? string.Join(" | ", results) : "No simple match found";
+            AutoMatchInfo    = results.Any() ? string.Join(" | ", results) : "No simple match found";
+            _overlayAutoMatch = AutoMatchInfo;
             InvalidateVisual();
         }
 
@@ -489,41 +620,11 @@ namespace Matrix.Controls
             );
 
             _zoomFactor = newZoom;
-            InvalidateVisual();
+            InvalidateChartCache(); // 줌은 차트 레이아웃 변경
             e.Handled = true;
         }
 
 
-        private void DrawCursorInfo(DrawingContext context, double controlHeight)
-        {
-            var bgBrush = new SolidColorBrush(Color.FromArgb(200, 255, 255, 255));
-            double yPos = controlHeight - 45;
-            double requiredHeight = 0;
-
-            if (_isMouseOver && !double.IsNaN(MouseImpedance.X))
-            {
-                requiredHeight += 40;
-            }
-            if (!string.IsNullOrEmpty(AutoMatchInfo))
-            {
-                requiredHeight += 25;
-            }
-            if (requiredHeight == 0) return;
-
-            context.DrawRectangle(bgBrush, null, new Rect(5, controlHeight - 5 - requiredHeight, 350, requiredHeight));
-
-            if (!string.IsNullOrEmpty(AutoMatchInfo))
-            {
-                DrawText(context, $"Click Match: {AutoMatchInfo}", new Point(10, yPos - 20), Brushes.DarkMagenta, 12, alignLeft: true);
-            }
-            if (_isMouseOver && !double.IsNaN(MouseImpedance.X))
-            {
-                string gammaText = $"Γ: {MouseGamma.X:F3}, {MouseGamma.Y:F3}j";
-                string impedanceText = $"Z: {MouseImpedance.X:F3:F3} + {MouseImpedance.Y:F3}j";
-                DrawText(context, gammaText, new Point(10, yPos), Brushes.Black, 12, alignLeft: true);
-                DrawText(context, impedanceText, new Point(10, yPos + 20), Brushes.Black, 12, alignLeft: true);
-            }
-        }
 
         private void DrawText(DrawingContext context, string text, Point origin, IBrush brush, double size = 10, bool alignLeft = false)
         {
@@ -614,4 +715,5 @@ namespace Matrix.Controls
             bitmap.Save(stream);
         }
     }
+
 }

@@ -7,6 +7,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <AvaloniaDesignerSupported>false</AvaloniaDesignerSupported>
+    <!-- 빌드 출력을 build\ 로 분리 (언어서버 DLL 잠금 방지) -->
+    <AppDir>$(MSBuildProjectDirectory)\bin\$(Configuration)\net8.0\app\</AppDir>
+    <OutputPath>bin\$(Configuration)\net8.0\build\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,18 +17,28 @@
     <PackageReference Include="Avalonia.Desktop" Version="11.3.12" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.12" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.9" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
   </ItemGroup>
 
+  <!-- 실행 중인 앱 종료 후 빌드 시작 (app\ 폴더에서 실행 중) -->
   <Target Name="KillBeforeBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="powershell -NoProfile -Command &quot;try { Stop-Process -Name Matrix -Force -ErrorAction SilentlyContinue } catch { } ; exit 0&quot;" ContinueOnError="True" />
+    <Exec Command="powershell -NoProfile -Command &quot;try { $p = Get-Process -Name Matrix -ErrorAction SilentlyContinue; if ($p) { $p | Stop-Process -Force; $p | Wait-Process -Timeout 10 -ErrorAction SilentlyContinue } } catch { } ; exit 0&quot;" ContinueOnError="True" />
+  </Target>
+
+  <!-- 빌드 완료 후 실행용 app\ 폴더로 복사 -->
+  <Target Name="CopyToAppDir" AfterTargets="Build">
+    <ItemGroup>
+      <RunFiles Include="$(OutDir)**\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(AppDir)" />
+    <Copy SourceFiles="@(RunFiles)"
+          DestinationFolder="$(AppDir)%(RecursiveDir)"
+          SkipUnchangedFiles="true" />
   </Target>
 
   <ItemGroup>
     <AvaloniaXaml Include="App.xaml" />
     <Compile Remove="App.cs" />
-    <Compile Remove="MainWindow.xaml.cs" />
-    <Compile Remove="Views\MainWindow.cs" />
-    <Compile Remove="Views\CircuitMatchingControl.cs" />
   </ItemGroup>
 
 </Project>

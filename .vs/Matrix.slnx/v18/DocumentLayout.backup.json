@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "G:\\Projects\\MatriX\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|g:\\projects\\matrix\\matrix\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|solutionrelative:matrix\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|g:\\projects\\matrix\\matrix\\smithchartcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|solutionrelative:matrix\\smithchartcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|g:\\projects\\matrix\\matrix\\matrix.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|solutionrelative:matrix\\matrix.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|g:\\projects\\matrix\\matrix\\views\\circuitmatchingcontrol.axaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|solutionrelative:matrix\\views\\circuitmatchingcontrol.axaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|g:\\projects\\matrix\\matrix\\smithchartcontrol.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|solutionrelative:matrix\\smithchartcontrol.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|g:\\projects\\matrix\\matrix\\views\\unitconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -21,6 +17,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|g:\\projects\\matrix\\matrix\\views\\mainwindow.axaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|solutionrelative:matrix\\views\\mainwindow.axaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|g:\\projects\\matrix\\matrix\\views\\circuitmatchingcontrol.axaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|solutionrelative:matrix\\views\\circuitmatchingcontrol.axaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|g:\\projects\\matrix\\matrix\\matrix.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|solutionrelative:matrix\\matrix.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|g:\\projects\\matrix\\matrix\\controls\\schematiccontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -35,15 +39,7 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Matrix\\Views\\MainWindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Projects\\MatriX\\Matrix\\Views\\CircuitMatchingControl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Matrix\\Views\\CircuitMatchingControl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shpar\\AppData\\Local\\Temp\\.vsdbgsrc\\91396768e1d5727b7cd940c07e8304a62323cda7eb1c2b706e251f04e8bdd54a\\Dispatcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|g:\\projects\\matrix\\matrix\\smithchartcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|solutionrelative:matrix\\smithchartcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|g:\\projects\\matrix\\matrix\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -52,6 +48,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Projects\\MatriX\\Matrix\\MainWindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Matrix\\MainWindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Projects\\MatriX\\Matrix\\MainWindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Matrix\\MainWindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|g:\\projects\\matrix\\matrix\\views\\circuitmatchingcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E62E215-36E8-102B-7703-C695FF83B6BB}|Matrix\\Matrix.csproj|solutionrelative:matrix\\views\\circuitmatchingcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -61,7 +65,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -77,7 +81,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
+              "Title": "SmithChartControl.cs",
+              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\SmithChartControl.cs",
+              "RelativeDocumentMoniker": "Matrix\\SmithChartControl.cs",
+              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\SmithChartControl.cs",
+              "RelativeToolTip": "Matrix\\SmithChartControl.cs",
+              "ViewState": "AgIAAJgCAAAAAAAAAAAiwJ8CAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T00:01:49.876Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "UnitConverter.cs",
               "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\Views\\UnitConverter.cs",
               "RelativeDocumentMoniker": "Matrix\\Views\\UnitConverter.cs",
@@ -85,34 +102,129 @@
               "RelativeToolTip": "Matrix\\Views\\UnitConverter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T10:42:37.434Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-29T10:42:37.434Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "CircuitMatchingControl.axaml",
               "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\Views\\CircuitMatchingControl.axaml",
               "RelativeDocumentMoniker": "Matrix\\Views\\CircuitMatchingControl.axaml",
               "ToolTip": "G:\\Projects\\MatriX\\Matrix\\Views\\CircuitMatchingControl.axaml",
               "RelativeToolTip": "Matrix\\Views\\CircuitMatchingControl.axaml",
-              "ViewState": "AgIAACUAAAAAAAAAAAAxwDMAAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAABoAAAAAAAAAAAAkwCsAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-03-29T10:42:29.407Z",
+              "WhenOpened": "2026-03-29T10:42:29.407Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CircuitMatchingControl.cs",
+              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\Views\\CircuitMatchingControl.cs",
+              "RelativeDocumentMoniker": "Matrix\\Views\\CircuitMatchingControl.cs",
+              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\Views\\CircuitMatchingControl.cs",
+              "RelativeToolTip": "Matrix\\Views\\CircuitMatchingControl.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T02:49:12.131Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "App.cs",
+              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\App.cs",
+              "RelativeDocumentMoniker": "Matrix\\App.cs",
+              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\App.cs",
+              "RelativeToolTip": "Matrix\\App.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T02:14:59.534Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MainWindow.cs",
+              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\Views\\MainWindow.cs",
+              "RelativeDocumentMoniker": "Matrix\\Views\\MainWindow.cs",
+              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\Views\\MainWindow.cs",
+              "RelativeToolTip": "Matrix\\Views\\MainWindow.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T02:49:16.783Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SmithChartControl.xaml",
+              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\SmithChartControl.xaml",
+              "RelativeDocumentMoniker": "Matrix\\SmithChartControl.xaml",
+              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\SmithChartControl.xaml",
+              "RelativeToolTip": "Matrix\\SmithChartControl.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-31T13:22:05.893Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 12,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Matrix\\MainWindow.xaml",
               "ToolTip": "G:\\Projects\\MatriX\\Matrix\\MainWindow.xaml",
               "RelativeToolTip": "Matrix\\MainWindow.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-29T10:42:20.761Z",
+              "WhenOpened": "2026-03-29T10:42:20.761Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Matrix.csproj",
+              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\Matrix.csproj",
+              "RelativeDocumentMoniker": "Matrix\\Matrix.csproj",
+              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\Matrix.csproj",
+              "RelativeToolTip": "Matrix\\Matrix.csproj",
+              "ViewState": "AgIAAAgAAAAAAAAAAADgvxcAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-28T02:18:00.119Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SchematicControl.cs",
+              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\Controls\\SchematicControl.cs",
+              "RelativeDocumentMoniker": "Matrix\\Controls\\SchematicControl.cs",
+              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\Controls\\SchematicControl.cs",
+              "RelativeToolTip": "Matrix\\Controls\\SchematicControl.cs",
+              "ViewState": "AgIAAJ8AAAAAAAAAAAAuwK4AAAB1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T23:47:46.635Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Matrix\\MainWindow.xaml.cs",
+              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\MainWindow.xaml.cs",
+              "RelativeToolTip": "Matrix\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T02:56:54.29Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainWindow.axaml",
+              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\Views\\MainWindow.axaml",
+              "RelativeDocumentMoniker": "Matrix\\Views\\MainWindow.axaml",
+              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\Views\\MainWindow.axaml",
+              "RelativeToolTip": "Matrix\\Views\\MainWindow.axaml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-28T06:53:39.032Z"
             },
             {
               "$type": "Document",
@@ -127,105 +239,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Matrix.csproj",
-              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\Matrix.csproj",
-              "RelativeDocumentMoniker": "Matrix\\Matrix.csproj",
-              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\Matrix.csproj",
-              "RelativeToolTip": "Matrix\\Matrix.csproj",
-              "ViewState": "AgIAAAgAAAAAAAAAAADgvxcAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-03-28T02:18:00.119Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "CircuitMatchingControl.cs",
-              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\Views\\CircuitMatchingControl.cs",
-              "RelativeDocumentMoniker": "Matrix\\Views\\CircuitMatchingControl.cs",
-              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\Views\\CircuitMatchingControl.cs",
-              "RelativeToolTip": "Matrix\\Views\\CircuitMatchingControl.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T02:49:12.131Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "App.cs",
-              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\App.cs",
-              "RelativeDocumentMoniker": "Matrix\\App.cs",
-              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\App.cs",
-              "RelativeToolTip": "Matrix\\App.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T02:14:59.534Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MainWindow.cs",
-              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\Views\\MainWindow.cs",
-              "RelativeDocumentMoniker": "Matrix\\Views\\MainWindow.cs",
-              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\Views\\MainWindow.cs",
-              "RelativeToolTip": "Matrix\\Views\\MainWindow.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T02:49:16.783Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SchematicControl.cs",
-              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\Controls\\SchematicControl.cs",
-              "RelativeDocumentMoniker": "Matrix\\Controls\\SchematicControl.cs",
-              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\Controls\\SchematicControl.cs",
-              "RelativeToolTip": "Matrix\\Controls\\SchematicControl.cs",
-              "ViewState": "AgIAAJ8AAAAAAAAAAAAuwK4AAAB1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T23:47:46.635Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "Matrix\\MainWindow.xaml.cs",
-              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\MainWindow.xaml.cs",
-              "RelativeToolTip": "Matrix\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T02:56:54.29Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MainWindow.axaml",
-              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\Views\\MainWindow.axaml",
-              "RelativeDocumentMoniker": "Matrix\\Views\\MainWindow.axaml",
-              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\Views\\MainWindow.axaml",
-              "RelativeToolTip": "Matrix\\Views\\MainWindow.axaml",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAB4AAABfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-03-28T06:53:39.032Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "SmithChartControl.cs",
-              "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\SmithChartControl.cs",
-              "RelativeDocumentMoniker": "Matrix\\SmithChartControl.cs",
-              "ToolTip": "G:\\Projects\\MatriX\\Matrix\\SmithChartControl.cs",
-              "RelativeToolTip": "Matrix\\SmithChartControl.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAAASwGoAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T00:01:49.876Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
               "Title": "AssemblyInfo.cs",
               "DocumentMoniker": "G:\\Projects\\MatriX\\Matrix\\AssemblyInfo.cs",
               "RelativeDocumentMoniker": "Matrix\\AssemblyInfo.cs",

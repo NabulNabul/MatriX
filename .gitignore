@@ -1,0 +1,21 @@
+# Visual Studio 관련 파일 및 폴더 무시
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# 빌드 결과물 무시
+bin/
+obj/
+
+# 기타
+*.log
+*.db
+*.cache
+*.pdb
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+Thumbs.db
